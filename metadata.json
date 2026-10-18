@@ -1,0 +1,9 @@
+{
+  "name": "Ambika Mobile – 3D Landing Page",
+  "description": "Gwalior’s premier destination for Apple, Samsung, OnePlus and Vivo smartphones, accessories and expert repairs. Hazira & Thatipur branches.",
+  "request": "This app was imported from GitHub repository sparkstationx-lab/ambikaclaude.",
+  "capabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ],
+  "permissions": []
+}
