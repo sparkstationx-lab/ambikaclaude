@@ -8,7 +8,21 @@ export default defineConfig({
     host: '0.0.0.0',
   },
   build: {
-    outDir: 'public',
-    emptyOutDir: true,
+    outDir: 'dist',
+    rollupOptions: {
+      output: {
+        manualChunks(id) {
+          if (id.includes('node_modules')) {
+            if (id.includes('three')) {
+              return 'three';
+            }
+            if (id.includes('react') || id.includes('react-dom')) {
+              return 'vendor-react';
+            }
+            return 'vendor';
+          }
+        },
+      },
+    },
   },
 });
