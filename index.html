@@ -100,7 +100,7 @@ footer{background:var(--bg2);border-top:1px solid var(--bd);padding:60px 5vw 40p
 .product-card:hover,.repair-card:hover{transform:translateY(-4px);border-color:var(--acc)}
 .product-badge,.repair-badge{display:inline-block;font-size:.72rem;font-weight:700;text-transform:uppercase;color:var(--acc2);background:var(--bg);padding:4px 10px;border-radius:999px;margin-bottom:12px;width:fit-content}
 .product-title,.repair-title{font-size:1.3rem;font-weight:800;margin-bottom:6px}
-.product-price,.repair-price{font-size:1.4rem;font-weight:900;color:var(--acc);margin-bottom:16px}
+.product-price{font-size:1.4rem;font-weight:900;color:var(--acc);margin-bottom:16px}
 .specs-list,.repair-details{list-style:none;padding:0;margin-bottom:20px;font-size:.9rem;color:var(--mut)}
 .specs-list li,.repair-details li{margin-bottom:6px;display:flex;align-items:center;gap:8px}
 .specs-list li::before,.repair-details li::before{content:"•";color:var(--acc);font-weight:bold}
@@ -283,7 +283,7 @@ footer{background:var(--bg2);border-top:1px solid var(--bd);padding:60px 5vw 40p
   <button class="btn ghost" onclick="switchView('home')" style="margin-bottom: 20px; padding: 8px 18px; font-size: .85rem;">← Back to Home</button>
   <span class="tag">Expert Technicians</span>
   <h2>Dedicated Repair Services</h2>
-  <p class="sub">Certified repairs for Apple, Samsung, OnePlus, Vivo and more. Genuine spare parts, transparent pricing, and 6-month warranty on screen and battery replacements.</p>
+  <p class="sub">Certified repairs for Apple, Samsung, OnePlus, Vivo and more. Genuine spare parts, professional diagnostics, and 6-month warranty on screen and battery replacements.</p>
  </div>
 
  <div class="repair-grid">
@@ -291,90 +291,84 @@ footer{background:var(--bg2);border-top:1px solid var(--bd);padding:60px 5vw 40p
    <div>
     <span class="repair-badge">Most Popular</span>
     <div class="repair-title">Screen &amp; Glass Replacement</div>
-    <div class="repair-price">From ₹1,499</div>
-    <ul class="repair-details">
+    <ul class="repair-details" style="margin-top: 14px;">
      <li>Original OLED/LCD touch displays</li>
      <li>Same-day turnaround (30-60 mins)</li>
      <li>6-month replacement warranty</li>
      <li>Free tempered glass protector included</li>
     </ul>
    </div>
-   <button class="btn" onclick="showToast('Screen repair slot booked! Visit Hazira or Thatipur.')" style="width:100%; padding:11px; font-size:.9rem">Book Repair Slot</button>
+   <button class="btn" onclick="bookRepair('Screen & Glass Replacement')" style="width:100%; padding:11px; font-size:.9rem">Book Repair Slot</button>
   </div>
 
   <div class="repair-card reveal">
    <div>
     <span class="repair-badge">Essential Care</span>
     <div class="repair-title">Battery Replacement</div>
-    <div class="repair-price">From ₹999</div>
-    <ul class="repair-details">
+    <ul class="repair-details" style="margin-top: 14px;">
      <li>High-capacity certified cells</li>
      <li>Restores 100% battery health</li>
      <li>Prevents sudden shutdowns &amp; heating</li>
      <li>Tested for safety and longevity</li>
     </ul>
    </div>
-   <button class="btn" onclick="showToast('Battery repair slot booked! Visit Hazira or Thatipur.')" style="width:100%; padding:11px; font-size:.9rem">Book Repair Slot</button>
+   <button class="btn" onclick="bookRepair('Battery Replacement')" style="width:100%; padding:11px; font-size:.9rem">Book Repair Slot</button>
   </div>
 
   <div class="repair-card reveal">
    <div>
     <span class="repair-badge">Hardware Fix</span>
     <div class="repair-title">Charging Port &amp; Audio Repair</div>
-    <div class="repair-price">From ₹699</div>
-    <ul class="repair-details">
+    <ul class="repair-details" style="margin-top: 14px;">
      <li>USB-C / Lightning port cleaning or swap</li>
      <li>Earpiece &amp; loudspeaker replacement</li>
      <li>Microphone clarity restoration</li>
      <li>Fast-charging protocol verification</li>
     </ul>
    </div>
-   <button class="btn" onclick="showToast('Charging port repair booked! Visit Hazira or Thatipur.')" style="width:100%; padding:11px; font-size:.9rem">Book Repair Slot</button>
+   <button class="btn" onclick="bookRepair('Charging Port & Audio Repair')" style="width:100%; padding:11px; font-size:.9rem">Book Repair Slot</button>
   </div>
 
   <div class="repair-card reveal">
    <div>
     <span class="repair-badge">Digital Support</span>
     <div class="repair-title">Software Troubleshooting</div>
-    <div class="repair-price">From ₹499</div>
-    <ul class="repair-details">
+    <ul class="repair-details" style="margin-top: 14px;">
      <li>OS flashing &amp; bootloop recovery</li>
      <li>Data backup &amp; safe migration</li>
      <li>Virus / malware removal &amp; optimization</li>
      <li>Apple ID / Google account unlocking support</li>
     </ul>
    </div>
-   <button class="btn" onclick="showToast('Software service booked! Visit Hazira or Thatipur.')" style="width:100%; padding:11px; font-size:.9rem">Book Repair Slot</button>
+   <button class="btn" onclick="bookRepair('Software Troubleshooting')" style="width:100%; padding:11px; font-size:.9rem">Book Repair Slot</button>
   </div>
 
   <div class="repair-card reveal">
    <div>
     <span class="repair-badge">Advanced Lab</span>
     <div class="repair-title">Water Damage &amp; Motherboard Fix</div>
-    <div class="repair-price">Inspection Free</div>
-    <ul class="repair-details">
+    <ul class="repair-details" style="margin-top: 14px;">
      <li>Ultrasonic chemical cleaning</li>
      <li>Chip-level micro-soldering repair</li>
      <li>Dead phone data recovery services</li>
      <li>Detailed diagnostic estimate before work</li>
     </ul>
    </div>
-   <button class="btn" onclick="showToast('Motherboard check booked! Visit Hazira or Thatipur.')" style="width:100%; padding:11px; font-size:.9rem">Book Repair Slot</button>
+   <button class="btn" onclick="bookRepair('Water Damage & Motherboard Fix')" style="width:100%; padding:11px; font-size:.9rem">Book Repair Slot</button>
   </div>
 
   <div class="repair-card reveal">
    <div>
     <span class="repair-badge">Protection</span>
     <div class="repair-title">Camera &amp; Glass Lens Repair</div>
-    <div class="repair-price">From ₹899</div>
-    <ul class="repair-details">
+    <ul class="repair-details" style="margin-top: 14px;">
      <li>Outer camera glass lens replacement</li>
      <li>Main sensor dust cleaning &amp; alignment</li>
      <li>OIS stabilization repair</li>
      <li>Original clarity and focus restored</li>
     </ul>
    </div>
-   <button class="btn" onclick="showToast('Camera repair slot booked! Visit Hazira or Thatipur.')" style="width:100%; padding:11px; font-size:.9rem">Book Repair Slot</button>
+   <button class="btn" onclick="bookRepair('Camera & Glass Lens Repair')" style="width:100%; padding:11px; font-size:.9rem">Book Repair Slot</button>
   </div>
  </div>
 </div>
@@ -588,7 +582,7 @@ function selectBrand(brand) {
      ${prod.specs.map(s => `<li>${s}</li>`).join('')}
     </ul>
    </div>
-   <button class="btn" onclick="showToast('Inquiry recorded for ${prod.name}! Visit Hazira or Thatipur.')" style="width:100%; padding:11px; font-size:.9rem">Inquire at Branch</button>
+   <button class="btn" onclick="inquireProduct('${prod.name}', '${prod.price}')" style="width:100%; padding:11px; font-size:.9rem">Inquire via WhatsApp</button>
   `;
   gridContainer.appendChild(card);
  });
@@ -600,6 +594,20 @@ function backToBrandsGrid() {
  document.getElementById('products-step-2').style.display = 'none';
  document.getElementById('product-grid-container').style.display = 'none';
  window.scrollTo({top: 0, behavior: 'smooth'});
+}
+
+function bookRepair(serviceName) {
+ const phone = '919826011111'; // Owner's WhatsApp number
+ const message = `Hello Ambika Mobile, I would like to book a repair slot for: ${serviceName}. Please let me know the availability and estimated time at your Hazira / Thatipur branch.`;
+ const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+ window.open(url, '_blank');
+}
+
+function inquireProduct(modelName, price) {
+ const phone = '919826011111'; // Owner's WhatsApp number
+ const message = `Hello Ambika Mobile, I am interested in inquiring about / purchasing the ${modelName} (${price}). Please let me know its availability at your Hazira / Thatipur branch.`;
+ const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+ window.open(url, '_blank');
 }
 
 // Set initial active nav
