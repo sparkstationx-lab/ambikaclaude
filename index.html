@@ -15,12 +15,17 @@ html{scroll-behavior:smooth;scroll-padding-top:72px}
 body{background:var(--bg);color:var(--tx);font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;line-height:1.6;overflow-x:hidden}
 a{color:inherit;text-decoration:none}
 nav{position:fixed;top:env(safe-area-inset-top,0px);left:0;right:0;z-index:20;display:flex;justify-content:space-between;align-items:center;padding:14px 5vw;backdrop-filter:blur(14px);background:var(--card);border-bottom:1px solid var(--bd)}
-.logo{font-weight:800;font-size:1.15rem;letter-spacing:-.02em}.logo b{color:var(--acc)}
+.logo{font-weight:800;font-size:1.15rem;letter-spacing:-.02em;cursor:pointer}.logo b{color:var(--acc)}
 nav ul{display:flex;gap:26px;list-style:none;padding:0}
-nav ul a{font-size:.92rem;color:var(--mut)}nav ul a:hover{color:var(--tx)}
-.btn{display:inline-block;padding:13px 26px;border-radius:999px;font-weight:700;background:linear-gradient(135deg,var(--acc),#ff4d4d);color:#fff;box-shadow:0 10px 30px #ff7a1a40;transition:transform .2s}
+nav ul a{font-size:.92rem;color:var(--mut);cursor:pointer}nav ul a:hover{color:var(--tx)}
+.btn{display:inline-block;padding:13px 26px;border-radius:999px;font-weight:700;background:linear-gradient(135deg,var(--acc),#ff4d4d);color:#fff;box-shadow:0 10px 30px #ff7a1a40;transition:transform .2s;cursor:pointer;border:none}
 .btn:hover{transform:translateY(-2px)}
 .btn.ghost{background:transparent;color:var(--tx);border:1px solid var(--bd);box-shadow:none}
+
+/* View Switcher */
+.view{display:none}
+.view.active{display:block}
+
 .hero{position:relative;min-height:100svh;display:grid;grid-template-columns:1.05fr 1fr;align-items:center;padding:96px 5vw 40px;gap:20px;overflow:hidden}
 .hero::before{content:"";position:absolute;inset:0;background:radial-gradient(60% 50% at 75% 45%,#2f6bff33,transparent 70%),radial-gradient(40% 40% at 20% 80%,#ff7a1a22,transparent 70%);pointer-events:none}
 .tag{display:inline-block;font-size:.8rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--acc);border:1px solid var(--bd);padding:6px 14px;border-radius:999px;margin-bottom:18px}
@@ -41,13 +46,34 @@ h2{font-size:clamp(1.8rem,4vw,2.8rem);letter-spacing:-.025em;margin-bottom:12px}
 .ico{font-size:2rem;margin-bottom:14px}
 .card h3{margin-bottom:6px;font-size:1.2rem}.card p{color:var(--mut);font-size:.95rem}
 .brands{display:flex;flex-wrap:wrap;gap:16px}
-.brand{flex:1 1 200px;text-align:center;padding:34px 16px;border-radius:22px;border:1px solid var(--bd);background:var(--bg2);font-size:1.5rem;font-weight:800;letter-spacing:-.02em;transition:transform .25s}
-.brand:hover{transform:translateY(-6px)}
+.brand{flex:1 1 200px;text-align:center;padding:34px 16px;border-radius:22px;border:1px solid var(--bd);background:var(--bg2);font-size:1.5rem;font-weight:800;letter-spacing:-.02em;transition:transform .25s;cursor:pointer}
+.brand:hover{transform:translateY(-6px);border-color:var(--acc)}
 .band{background:var(--bg2);border-block:1px solid var(--bd);max-width:none}
 .band>div{max-width:1200px;margin:auto}
 .final{text-align:center}.final .sub{margin-inline:auto}
 footer{text-align:center;color:var(--mut);font-size:.85rem;padding:30px 5vw 40px}
 .reveal{opacity:0;transform:translateY(28px);transition:opacity .7s,transform .7s}.reveal.in{opacity:1;transform:none}
+
+/* Brands Page Styling */
+.page-header{padding:120px 5vw 40px;max-width:1200px;margin:0 auto}
+.brand-tabs{display:flex;gap:12px;overflow-x:auto;padding-bottom:10px;margin-bottom:40px;scrollbar-width:none}
+.brand-tabs::-webkit-scrollbar{display:none}
+.brand-tab{padding:10px 24px;border-radius:999px;border:1px solid var(--bd);background:var(--bg2);font-weight:700;cursor:pointer;white-space:nowrap;transition:all .2s}
+.brand-tab.active{background:var(--acc);color:#fff;border-color:var(--acc);box-shadow:0 6px 20px #ff7a1a40}
+.product-grid{display:grid;gap:24px;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));max-width:1200px;margin:0 auto;padding:0 5vw 80px}
+.product-card{background:var(--bg2);border:1px solid var(--bd);border-radius:22px;padding:28px;display:flex;flex-direction:column;justify-content:space-between;transition:transform .25s,border-color .25s}
+.product-card:hover{transform:translateY(-4px);border-color:var(--acc)}
+.product-badge{display:inline-block;font-size:.72rem;font-weight:700;text-transform:uppercase;color:var(--acc2);background:var(--bg);padding:4px 10px;border-radius:999px;margin-bottom:12px;width:fit-content}
+.product-title{font-size:1.3rem;font-weight:800;margin-bottom:6px}
+.product-price{font-size:1.4rem;font-weight:900;color:var(--acc);margin-bottom:16px}
+.specs-list{list-style:none;padding:0;margin-bottom:20px;font-size:.9rem;color:var(--mut)}
+.specs-list li{margin-bottom:6px;display:flex;align-items:center;gap:8px}
+.specs-list li::before{content:"•";color:var(--acc);font-weight:bold}
+
+/* Notification Toast */
+#toast{position:fixed;bottom:24px;right:24px;background:var(--bg2);border:1px solid var(--acc);padding:16px 24px;border-radius:14px;box-shadow:0 10px 30px rgba(0,0,0,.15);z-index:100;transform:translateY(120%);transition:transform .3s ease;font-weight:600}
+#toast.show{transform:translateY(0)}
+
 @media (max-width:860px){
  nav ul{display:none}
  .hero{grid-template-columns:1fr;text-align:center;padding-top:84px}
@@ -60,59 +86,183 @@ footer{text-align:center;color:var(--mut);font-size:.85rem;padding:30px 5vw 40px
 </head>
 <body>
 <nav>
- <a class="logo" href="#top">Ambika<b>Mobile</b></a>
- <ul><li><a href="#brands">Brands</a></li><li><a href="#services">Services</a></li><li><a href="#visit">Branches</a></li></ul>
- <a class="btn" href="#visit" style="padding:9px 20px;font-size:.9rem">Visit Us</a>
+ <a class="logo" onclick="switchView('home')">Ambika<b>Mobile</b></a>
+ <ul>
+  <li><a onclick="switchView('home')">Home</a></li>
+  <li><a onclick="switchView('brands-page', 'Apple')">Brands &amp; Products</a></li>
+  <li><a href="#services" onclick="switchView('home')">Services</a></li>
+  <li><a href="#visit" onclick="switchView('home')">Branches</a></li>
+ </ul>
+ <button class="btn" onclick="switchView('brands-page', 'Apple')" style="padding:9px 20px;font-size:.9rem">Explore Phones</button>
 </nav>
 
-<header class="hero" id="top">
- <div>
-  <span class="tag">Gwalior’s Mobile Destination</span>
-  <h1>Your next phone, <span>perfectly fixed</span> &amp; fitted.</h1>
-  <p class="lead">Premium smartphones from Apple, Samsung, OnePlus and Vivo, genuine accessories and expert repair, all under one trusted roof in Gwalior.</p>
-  <div class="cta"><a class="btn" href="#brands">Explore Phones</a><a class="btn ghost" href="#services">Repair Services</a></div>
-  <div class="stats"><div><b>4</b><small>Top brands</small></div><div><b>2</b><small>Gwalior branches</small></div><div><b>Expert</b><small>Repair desk</small></div></div>
- </div>
- <div id="stage"><div class="hint">Drag to rotate the phone</div></div>
-</header>
+<!-- HOME VIEW -->
+<div id="home-view" class="view active">
+ <header class="hero" id="top">
+  <div>
+   <span class="tag">Gwalior’s Mobile Destination</span>
+   <h1>Your next phone, <span>perfectly fixed</span> &amp; fitted.</h1>
+   <p class="lead">Premium smartphones from Apple, Samsung, OnePlus and Vivo, genuine accessories and expert repair, all under one trusted roof in Gwalior.</p>
+   <div class="cta">
+    <button class="btn" onclick="switchView('brands-page', 'Apple')">Explore Phones</button>
+    <a class="btn ghost" href="#services">Repair Services</a>
+   </div>
+   <div class="stats"><div><b>4</b><small>Top brands</small></div><div><b>2</b><small>Gwalior branches</small></div><div><b>Expert</b><small>Repair desk</small></div></div>
+  </div>
+  <div id="stage"><div class="hint">Drag to rotate the phone</div></div>
+ </header>
 
-<section id="brands">
- <h2 class="reveal">Brands you love</h2>
- <p class="sub reveal">Latest launches and best-sellers, with honest advice from people who use these phones every day.</p>
- <div class="brands reveal">
-  <div class="brand">Apple</div><div class="brand">Samsung</div><div class="brand">OnePlus</div><div class="brand">Vivo</div>
- </div>
-</section>
+ <section id="brands">
+  <h2 class="reveal">Brands you love</h2>
+  <p class="sub reveal">Latest launches and best-sellers, with honest advice from people who use these phones every day.</p>
+  <div class="brands reveal">
+   <div class="brand" onclick="switchView('brands-page', 'Apple')">Apple</div>
+   <div class="brand" onclick="switchView('brands-page', 'Samsung')">Samsung</div>
+   <div class="brand" onclick="switchView('brands-page', 'OnePlus')">OnePlus</div>
+   <div class="brand" onclick="switchView('brands-page', 'Vivo')">Vivo</div>
+  </div>
+ </section>
 
-<section class="band" id="services"><div>
- <h2 class="reveal">Sales, accessories &amp; service</h2>
- <p class="sub reveal">Everything your phone needs, from day one to year five.</p>
- <div class="grid">
-  <div class="card reveal tilt"><div class="ico">📱</div><h3>Smartphone Sales</h3><p>New launches across every budget, with exchange guidance and setup help.</p></div>
-  <div class="card reveal tilt"><div class="ico">🎧</div><h3>Accessories</h3><p>Cases, tempered glass, chargers, earbuds and more, chosen for quality.</p></div>
-  <div class="card reveal tilt"><div class="ico">🛠️</div><h3>Expert Repair</h3><p>Screens, batteries, charging ports and software issues handled by skilled technicians.</p></div>
- </div>
-</div></section>
+ <section class="band" id="services"><div>
+  <h2 class="reveal">Sales, accessories &amp; service</h2>
+  <p class="sub reveal">Everything your phone needs, from day one to year five.</p>
+  <div class="grid">
+   <div class="card reveal tilt"><div class="ico">📱</div><h3>Smartphone Sales</h3><p>New launches across every budget, with exchange guidance and setup help.</p></div>
+   <div class="card reveal tilt"><div class="ico">🎧</div><h3>Accessories</h3><p>Cases, tempered glass, chargers, earbuds and more, chosen for quality.</p></div>
+   <div class="card reveal tilt"><div class="ico">🛠️</div><h3>Expert Repair</h3><p>Screens, batteries, charging ports and software issues handled by skilled technicians.</p></div>
+  </div>
+ </div></section>
 
-<section id="visit">
- <h2 class="reveal">Two branches, one promise</h2>
- <p class="sub reveal">Walk into whichever is closer to you.</p>
- <div class="grid">
-  <div class="card reveal tilt"><div class="ico">📍</div><h3>Hazira Branch</h3><p>Gwalior, Madhya Pradesh</p><p style="margin-top:14px"><a class="btn ghost" style="padding:9px 20px" href="https://www.google.com/maps/search/Ambika+Mobile+Hazira+Gwalior" target="_blank" rel="noopener">Get directions</a></p></div>
-  <div class="card reveal tilt"><div class="ico">📍</div><h3>Thatipur Branch</h3><p>Gwalior, Madhya Pradesh</p><p style="margin-top:14px"><a class="btn ghost" style="padding:9px 20px" href="https://www.google.com/maps/search/Ambika+Mobile+Thatipur+Gwalior" target="_blank" rel="noopener">Get directions</a></p></div>
- </div>
-</section>
+ <section id="visit">
+  <h2 class="reveal">Two branches, one promise</h2>
+  <p class="sub reveal">Walk into whichever is closer to you.</p>
+  <div class="grid">
+   <div class="card reveal tilt"><div class="ico">📍</div><h3>Hazira Branch</h3><p>Gwalior, Madhya Pradesh</p><p style="margin-top:14px"><a class="btn ghost" style="padding:9px 20px" href="https://www.google.com/maps/search/Ambika+Mobile+Hazira+Gwalior" target="_blank" rel="noopener">Get directions</a></p></div>
+   <div class="card reveal tilt"><div class="ico">📍</div><h3>Thatipur Branch</h3><p>Gwalior, Madhya Pradesh</p><p style="margin-top:14px"><a class="btn ghost" style="padding:9px 20px" href="https://www.google.com/maps/search/Ambika+Mobile+Thatipur+Gwalior" target="_blank" rel="noopener">Get directions</a></p></div>
+  </div>
+ </section>
 
-<section class="final">
- <h2 class="reveal">Ready for an upgrade?</h2>
- <p class="sub reveal">Drop in for a demo, a quote or a quick fix.</p>
- <a class="btn reveal" href="#visit">Find your nearest branch</a>
-</section>
+ <section class="final">
+  <h2 class="reveal">Ready for an upgrade?</h2>
+  <p class="sub reveal">Drop in for a demo, a quote or a quick fix.</p>
+  <button class="btn reveal" onclick="switchView('brands-page', 'Apple')">Browse all smartphones</button>
+ </section>
+</div>
+
+<!-- BRANDS & PRODUCTS PAGE VIEW -->
+<div id="brands-page-view" class="view">
+ <div class="page-header">
+  <button class="btn ghost" onclick="switchView('home')" style="margin-bottom: 20px; padding: 8px 18px; font-size: .85rem;">← Back to Home</button>
+  <span class="tag">Catalog &amp; Availability</span>
+  <h2>Explore Smartphone Brands</h2>
+  <p class="sub">Select a brand below to view available models, specifications, and best pricing at Ambika Mobile Gwalior.</p>
+  
+  <div class="brand-tabs" id="brand-tabs-container">
+   <!-- Tabs generated dynamically -->
+  </div>
+ </div>
+
+ <div class="product-grid" id="product-grid-container">
+  <!-- Products generated dynamically -->
+ </div>
+</div>
+
 <footer>© <span id="yr"></span> Ambika Mobile Sale &amp; Service, Gwalior. All rights reserved.</footer>
+
+<!-- Notification Toast -->
+<div id="toast">Inquiry received! Our team will contact you soon.</div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script>
 document.getElementById('yr').textContent=new Date().getFullYear();
+
+// Product Database by Brand
+const brandProducts = {
+ Apple: [
+  { name: 'iPhone 16 Pro Max', price: '₹1,44,900', badge: 'Flagship', specs: ['A18 Pro chip with 6-core GPU', '6.9" Super Retina XDR display', '48MP Fusion camera system', 'Titanium design with Action Button'] },
+  { name: 'iPhone 16', price: '₹79,900', badge: 'Latest', specs: ['A18 chip with 5-core GPU', '6.1" OLED display', 'Camera Control button', 'Advanced dual-camera system'] },
+  { name: 'iPhone 15', price: '₹69,900', badge: 'Best Value', specs: ['A16 Bionic chip', 'Dynamic Island & 6.1" display', '48MP main camera with 2x Telephoto', 'USB-C connectivity'] },
+  { name: 'iPhone 14', price: '₹58,900', badge: 'Popular', specs: ['A15 Bionic chip with 5-core GPU', '6.1" Super Retina XDR', 'Crash Detection & Emergency SOS', 'All-day battery life'] }
+ ],
+ Samsung: [
+  { name: 'Galaxy S25 Ultra', price: '₹1,29,900', badge: 'Ultra Flagship', specs: ['Snapdragon 8 Elite for Galaxy', 'Built-in S Pen', '200MP Quad Camera with AI Zoom', '6.8" Dynamic AMOLED 2X 120Hz'] },
+  { name: 'Galaxy S25+', price: '₹99,900', badge: 'Flagship', specs: ['Exynos 2500 / Snapdragon 8 Elite', '6.7" QHD+ AMOLED display', 'Advanced AI photo & chat assist', '4900mAh battery with 45W charging'] },
+  { name: 'Galaxy Z Fold 6', price: '₹1,64,900', badge: 'Foldable', specs: ['Snapdragon 8 Gen 3 for Galaxy', '7.6" Main Foldable Inner Screen', 'AI-powered productivity & multitasking', 'Armor Aluminum hinge'] },
+  { name: 'Galaxy A55 5G', price: '₹36,900', badge: 'Best Seller', specs: ['Exynos 1480 with AMD graphics', '6.6" Super AMOLED 120Hz', '50MP OIS Triple Camera', 'IP67 dust & water resistance'] }
+ ],
+ OnePlus: [
+  { name: 'OnePlus 13', price: '₹69,900', badge: 'Flagship Killer', specs: ['Snapdragon 8 Elite processor', 'Hasselblad 4th Gen Camera for Mobile', '6000mAh battery with 100W SuperVOOC', '2K 120Hz ProXDR display'] },
+  { name: 'OnePlus 13R', price: '₹42,900', badge: 'Performance', specs: ['Snapdragon 8 Gen 3', '6.78" 1.5K AMOLED display', '6500mAh massive battery', 'Triple stereo speakers'] },
+  { name: 'OnePlus Open', price: '₹1,39,900', badge: 'Foldable', specs: ['Snapdragon 8 Gen 2', 'Dual ProXDR displays', 'Flexion Hinge with zero crease', '48MP Sony LYT-T808 sensor'] },
+  { name: 'OnePlus Nord 4', price: '₹29,900', badge: 'Mid-Range', specs: ['Snapdragon 7+ Gen 3', 'All-metal unibody design', '5500mAh battery with 100W charging', '50MP Sony LYT-600 main camera'] }
+ ],
+ Vivo: [
+  { name: 'Vivo X200 Pro', price: '₹94,900', badge: 'Camera King', specs: ['MediaTek Dimensity 9400', 'Zeiss 200MP APO Telephoto camera', '6000mAh BlueVolt battery', '6.78" 120Hz curved AMOLED'] },
+  { name: 'Vivo V40 Pro', price: '₹49,900', badge: 'Portrait Expert', specs: ['Dimensity 9200+', 'Zeiss All Main Camera system', '50MP Studio Quality Portrait', 'Ultra-slim 3D curved design'] },
+  { name: 'Vivo T3 Ultra', price: '₹31,900', badge: 'Value Power', specs: ['MediaTek Dimensity 9200+', 'Slimmest curved 120Hz display', '5500mAh battery with 80W FlashCharge', '50MP Sony IMX921 OIS camera'] },
+  { name: 'Vivo Y300 Pro', price: '₹23,900', badge: 'Reliable', specs: ['Snapdragon 6 Gen 1', '6500mAh battery with 80W fast charge', '1300 nits bright AMOLED display', '50MP main camera'] }
+ ]
+};
+
+let currentBrand = 'Apple';
+
+function switchView(viewId, brandArg) {
+ document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+ if (viewId === 'home') {
+  document.getElementById('home-view').classList.add('active');
+  window.scrollTo({top: 0, behavior: 'smooth'});
+ } else if (viewId === 'brands-page') {
+  document.getElementById('brands-page-view').classList.add('active');
+  if (brandArg) currentBrand = brandArg;
+  renderBrandsPage();
+  window.scrollTo({top: 0, behavior: 'smooth'});
+ }
+}
+
+function renderBrandsPage() {
+ const tabsContainer = document.getElementById('brand-tabs-container');
+ tabsContainer.innerHTML = '';
+ Object.keys(brandProducts).forEach(brand => {
+  const btn = document.createElement('button');
+  btn.className = `brand-tab ${brand === currentBrand ? 'active' : ''}`;
+  btn.textContent = brand;
+  btn.onclick = () => {
+   currentBrand = brand;
+   renderBrandsPage();
+  };
+  tabsContainer.appendChild(btn);
+ });
+
+ const gridContainer = document.getElementById('product-grid-container');
+ gridContainer.innerHTML = '';
+ const products = brandProducts[currentBrand] || [];
+ products.forEach(prod => {
+  const card = document.createElement('div');
+  card.className = 'product-card';
+  card.innerHTML = `
+   <div>
+    <span class="product-badge">${prod.badge}</span>
+    <div class="product-title">${prod.name}</div>
+    <div class="product-price">${prod.price}</div>
+    <ul class="specs-list">
+     ${prod.specs.map(s => `<li>${s}</li>`).join('')}
+    </ul>
+   </div>
+   <button class="btn" onclick="showInquiry('${prod.name}', '${prod.price}')" style="width:100%; padding:11px; font-size:.9rem">Inquire at Branch</button>
+  `;
+  gridContainer.appendChild(card);
+ });
+}
+
+function showInquiry(modelName, price) {
+ const toast = document.getElementById('toast');
+ toast.textContent = `Inquiry recorded for ${modelName} (${price})! Visit Hazira or Thatipur branch to grab yours.`;
+ toast.classList.add('show');
+ setTimeout(() => {
+  toast.classList.remove('show');
+ }, 4000);
+}
+
 // Scroll reveal
 const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.15});
 document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
