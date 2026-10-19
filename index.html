@@ -11,14 +11,18 @@ box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:en
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#070a14;--bg2:#0d1222;--tx:#f2f4fb;--mut:#9aa3bd;--bd:#1f2740;--card:#0d1222cc}}
 :root[data-theme="dark"]{--bg:#070a14;--bg2:#0d1222;--tx:#f2f4fb;--mut:#9aa3bd;--bd:#1f2740;--card:#0d1222cc}
 *{box-sizing:border-box;margin:0}
-html{scroll-behavior:smooth;scroll-padding-top:72px}
-body{background:var(--bg);color:var(--tx);font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;line-height:1.6;overflow-x:hidden}
+html{scroll-behavior:smooth;scroll-padding-top:88px}
+body{background:var(--bg);color:var(--tx);font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;line-height:1.6;overflow-x:hidden;display:flex;flex-direction:column;min-height:100vh}
+main{flex:1}
 a{color:inherit;text-decoration:none}
-nav{position:fixed;top:env(safe-area-inset-top,0px);left:0;right:0;z-index:20;display:flex;justify-content:space-between;align-items:center;padding:14px 5vw;backdrop-filter:blur(14px);background:var(--card);border-bottom:1px solid var(--bd)}
+
+/* Sticky Floating Navigation Bar */
+nav{position:fixed;top:calc(12px + env(safe-area-inset-top,0px));left:5vw;right:5vw;max-width:1200px;margin:0 auto;z-index:100;display:flex;justify-content:space-between;align-items:center;padding:12px 24px;backdrop-filter:blur(16px);background:var(--card);border:1px solid var(--bd);border-radius:999px;box-shadow:0 10px 30px rgba(0,0,0,.08);transition:all .3s ease}
 .logo{font-weight:800;font-size:1.15rem;letter-spacing:-.02em;cursor:pointer}.logo b{color:var(--acc)}
-nav ul{display:flex;gap:26px;list-style:none;padding:0}
-nav ul a{font-size:.92rem;color:var(--mut);cursor:pointer}nav ul a:hover{color:var(--tx)}
-.btn{display:inline-block;padding:13px 26px;border-radius:999px;font-weight:700;background:linear-gradient(135deg,var(--acc),#ff4d4d);color:#fff;box-shadow:0 10px 30px #ff7a1a40;transition:transform .2s;cursor:pointer;border:none}
+nav ul{display:flex;gap:28px;list-style:none;padding:0;align-items:center}
+nav ul a{font-size:.92rem;font-weight:600;color:var(--mut);cursor:pointer;transition:color .2s}
+nav ul a:hover, nav ul a.active{color:var(--acc)}
+.btn{display:inline-block;padding:11px 22px;border-radius:999px;font-weight:700;background:linear-gradient(135deg,var(--acc),#ff4d4d);color:#fff;box-shadow:0 8px 25px #ff7a1a40;transition:transform .2s;cursor:pointer;border:none}
 .btn:hover{transform:translateY(-2px)}
 .btn.ghost{background:transparent;color:var(--tx);border:1px solid var(--bd);box-shadow:none}
 
@@ -26,7 +30,7 @@ nav ul a{font-size:.92rem;color:var(--mut);cursor:pointer}nav ul a:hover{color:v
 .view{display:none}
 .view.active{display:block}
 
-.hero{position:relative;min-height:100svh;display:grid;grid-template-columns:1.05fr 1fr;align-items:center;padding:96px 5vw 40px;gap:20px;overflow:hidden}
+.hero{position:relative;min-height:100svh;display:grid;grid-template-columns:1.05fr 1fr;align-items:center;padding:120px 5vw 40px;gap:20px;overflow:hidden}
 .hero::before{content:"";position:absolute;inset:0;background:radial-gradient(60% 50% at 75% 45%,#2f6bff33,transparent 70%),radial-gradient(40% 40% at 20% 80%,#ff7a1a22,transparent 70%);pointer-events:none}
 .tag{display:inline-block;font-size:.8rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--acc);border:1px solid var(--bd);padding:6px 14px;border-radius:999px;margin-bottom:18px}
 h1{font-size:clamp(2.3rem,6vw,4.6rem);line-height:1.05;letter-spacing:-.035em;margin-bottom:18px}
@@ -41,8 +45,8 @@ section{padding:90px 5vw;max-width:1200px;margin:0 auto}
 h2{font-size:clamp(1.8rem,4vw,2.8rem);letter-spacing:-.025em;margin-bottom:12px}
 .sub{color:var(--mut);max-width:560px;margin-bottom:40px}
 .grid{display:grid;gap:20px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
-.card{background:var(--bg2);border:1px solid var(--bd);border-radius:22px;padding:28px;transition:transform .25s,border-color .25s;transform-style:preserve-3d}
-.card:hover{border-color:var(--acc)}
+.card{background:var(--bg2);border:1px solid var(--bd);border-radius:22px;padding:28px;transition:transform .25s,border-color .25s;transform-style:preserve-3d;cursor:pointer}
+.card:hover{border-color:var(--acc);transform:translateY(-4px)}
 .ico{font-size:2rem;margin-bottom:14px}
 .card h3{margin-bottom:6px;font-size:1.2rem}.card p{color:var(--mut);font-size:.95rem}
 .brands{display:flex;flex-wrap:wrap;gap:16px}
@@ -51,24 +55,55 @@ h2{font-size:clamp(1.8rem,4vw,2.8rem);letter-spacing:-.025em;margin-bottom:12px}
 .band{background:var(--bg2);border-block:1px solid var(--bd);max-width:none}
 .band>div{max-width:1200px;margin:auto}
 .final{text-align:center}.final .sub{margin-inline:auto}
-footer{text-align:center;color:var(--mut);font-size:.85rem;padding:30px 5vw 40px}
+
+/* FAQ Accordion */
+.faq-list{max-width:900px;margin:0 auto;display:flex;flex-direction:column;gap:16px}
+.faq-item{background:var(--bg2);border:1px solid var(--bd);border-radius:16px;overflow:hidden;transition:border-color .2s}
+.faq-item:hover{border-color:var(--acc)}
+.faq-q{padding:22px 26px;font-weight:700;font-size:1.1rem;cursor:pointer;display:flex;justify-content:space-between;align-items:center}
+.faq-q::after{content:"+";font-size:1.4rem;color:var(--acc);transition:transform .2s}
+.faq-item.open .faq-q::after{transform:rotate(45deg)}
+.faq-a{max-height:0;overflow:hidden;padding:0 26px;color:var(--mut);transition:all .3s ease;font-size:0.98rem}
+.faq-item.open .faq-a{max-height:200px;padding:0 26px 22px 26px}
+
+/* Contact Page Form & Locations */
+.contact-layout{display:grid;gap:40px;grid-template-columns:1fr 1fr;max-width:1200px;margin:0 auto;padding:0 5vw 80px}
+.contact-form{background:var(--bg2);border:1px solid var(--bd);border-radius:22px;padding:36px}
+.form-group{margin-bottom:20px}
+.form-group label{display:block;font-size:.9rem;font-weight:700;margin-bottom:8px}
+.form-control{width:100%;padding:14px 18px;border-radius:12px;border:1px solid var(--bd);background:var(--bg);color:var(--tx);font-size:1rem;outline:none;transition:border-color .2s}
+.form-control:focus{border-color:var(--acc)}
+textarea.form-control{resize:vertical;min-height:120px}
+
+/* Footer Styling */
+footer{background:var(--bg2);border-top:1px solid var(--bd);padding:60px 5vw 40px;color:var(--mut);font-size:.9rem}
+.footer-grid{max-width:1200px;margin:0 auto 40px;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:40px}
+.footer-col h4{color:var(--tx);font-size:1.1rem;margin-bottom:16px;font-weight:800}
+.footer-col ul{list-style:none;padding:0;display:flex;flex-direction:column;gap:10px}
+.footer-col ul a{cursor:pointer;transition:color .2s}
+.footer-col ul a:hover{color:var(--acc)}
+.social-icons{display:flex;gap:14px;margin-top:16px}
+.social-icon{width:38px;height:38px;border-radius:50%;border:1px solid var(--bd);display:flex;align-items:center;justify-content:center;font-size:1rem;transition:all .2s;cursor:pointer}
+.social-icon:hover{background:var(--acc);color:#fff;border-color:var(--acc);transform:translateY(-2px)}
+.footer-bottom{max-width:1200px;margin:0 auto;padding-top:24px;border-top:1px solid var(--bd);text-align:center;font-size:.85rem}
+
 .reveal{opacity:0;transform:translateY(28px);transition:opacity .7s,transform .7s}.reveal.in{opacity:1;transform:none}
 
-/* Brands Page Styling */
-.page-header{padding:120px 5vw 40px;max-width:1200px;margin:0 auto}
+/* Pages Styling */
+.page-header{padding:130px 5vw 40px;max-width:1200px;margin:0 auto}
 .brand-tabs{display:flex;gap:12px;overflow-x:auto;padding-bottom:10px;margin-bottom:40px;scrollbar-width:none}
 .brand-tabs::-webkit-scrollbar{display:none}
 .brand-tab{padding:10px 24px;border-radius:999px;border:1px solid var(--bd);background:var(--bg2);font-weight:700;cursor:pointer;white-space:nowrap;transition:all .2s}
 .brand-tab.active{background:var(--acc);color:#fff;border-color:var(--acc);box-shadow:0 6px 20px #ff7a1a40}
-.product-grid{display:grid;gap:24px;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));max-width:1200px;margin:0 auto;padding:0 5vw 80px}
-.product-card{background:var(--bg2);border:1px solid var(--bd);border-radius:22px;padding:28px;display:flex;flex-direction:column;justify-content:space-between;transition:transform .25s,border-color .25s}
-.product-card:hover{transform:translateY(-4px);border-color:var(--acc)}
-.product-badge{display:inline-block;font-size:.72rem;font-weight:700;text-transform:uppercase;color:var(--acc2);background:var(--bg);padding:4px 10px;border-radius:999px;margin-bottom:12px;width:fit-content}
-.product-title{font-size:1.3rem;font-weight:800;margin-bottom:6px}
-.product-price{font-size:1.4rem;font-weight:900;color:var(--acc);margin-bottom:16px}
-.specs-list{list-style:none;padding:0;margin-bottom:20px;font-size:.9rem;color:var(--mut)}
-.specs-list li{margin-bottom:6px;display:flex;align-items:center;gap:8px}
-.specs-list li::before{content:"•";color:var(--acc);font-weight:bold}
+.product-grid,.repair-grid{display:grid;gap:24px;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));max-width:1200px;margin:0 auto;padding:0 5vw 80px}
+.product-card,.repair-card{background:var(--bg2);border:1px solid var(--bd);border-radius:22px;padding:28px;display:flex;flex-direction:column;justify-content:space-between;transition:transform .25s,border-color .25s}
+.product-card:hover,.repair-card:hover{transform:translateY(-4px);border-color:var(--acc)}
+.product-badge,.repair-badge{display:inline-block;font-size:.72rem;font-weight:700;text-transform:uppercase;color:var(--acc2);background:var(--bg);padding:4px 10px;border-radius:999px;margin-bottom:12px;width:fit-content}
+.product-title,.repair-title{font-size:1.3rem;font-weight:800;margin-bottom:6px}
+.product-price,.repair-price{font-size:1.4rem;font-weight:900;color:var(--acc);margin-bottom:16px}
+.specs-list,.repair-details{list-style:none;padding:0;margin-bottom:20px;font-size:.9rem;color:var(--mut)}
+.specs-list li,.repair-details li{margin-bottom:6px;display:flex;align-items:center;gap:8px}
+.specs-list li::before,.repair-details li::before{content:"•";color:var(--acc);font-weight:bold}
 
 /* Notification Toast */
 #toast{position:fixed;bottom:24px;right:24px;background:var(--bg2);border:1px solid var(--acc);padding:16px 24px;border-radius:14px;box-shadow:0 10px 30px rgba(0,0,0,.15);z-index:100;transform:translateY(120%);transition:transform .3s ease;font-weight:600}
@@ -76,26 +111,30 @@ footer{text-align:center;color:var(--mut);font-size:.85rem;padding:30px 5vw 40px
 
 @media (max-width:860px){
  nav ul{display:none}
- .hero{grid-template-columns:1fr;text-align:center;padding-top:84px}
+ nav{padding:10px 18px}
+ .hero{grid-template-columns:1fr;text-align:center;padding-top:100px}
  .lead{margin-inline:auto}.cta,.stats{justify-content:center}
  #stage{order:-1;height:42vh;min-height:300px}
  section{padding:64px 5vw}
+ .contact-layout{grid-template-columns:1fr}
 }
 @media (prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}html{scroll-behavior:auto}}
 </style>
 </head>
 <body>
+<!-- Sticky Floating Navigation Bar -->
 <nav>
  <a class="logo" onclick="switchView('home')">Ambika<b>Mobile</b></a>
  <ul>
-  <li><a onclick="switchView('home')">Home</a></li>
-  <li><a onclick="switchView('brands-page', 'Apple')">Brands &amp; Products</a></li>
-  <li><a href="#services" onclick="switchView('home')">Services</a></li>
-  <li><a href="#visit" onclick="switchView('home')">Branches</a></li>
+  <li><a id="nav-home" onclick="switchView('home')">Home</a></li>
+  <li><a id="nav-products" onclick="switchView('brands-page', 'Apple')">Products</a></li>
+  <li><a id="nav-repair" onclick="switchView('repair-page')">Repair Services</a></li>
+  <li><a id="nav-contact" onclick="switchView('contact-page')">Contact</a></li>
  </ul>
- <button class="btn" onclick="switchView('brands-page', 'Apple')" style="padding:9px 20px;font-size:.9rem">Explore Phones</button>
+ <button class="btn" onclick="switchView('brands-page', 'Apple')" style="padding:8px 18px;font-size:.88rem">Explore Phones</button>
 </nav>
 
+<main>
 <!-- HOME VIEW -->
 <div id="home-view" class="view active">
  <header class="hero" id="top">
@@ -105,7 +144,7 @@ footer{text-align:center;color:var(--mut);font-size:.85rem;padding:30px 5vw 40px
    <p class="lead">Premium smartphones from Apple, Samsung, OnePlus and Vivo, genuine accessories and expert repair, all under one trusted roof in Gwalior.</p>
    <div class="cta">
     <button class="btn" onclick="switchView('brands-page', 'Apple')">Explore Phones</button>
-    <a class="btn ghost" href="#services">Repair Services</a>
+    <button class="btn ghost" onclick="switchView('repair-page')">Repair Services</button>
    </div>
    <div class="stats"><div><b>4</b><small>Top brands</small></div><div><b>2</b><small>Gwalior branches</small></div><div><b>Expert</b><small>Repair desk</small></div></div>
   </div>
@@ -127,25 +166,53 @@ footer{text-align:center;color:var(--mut);font-size:.85rem;padding:30px 5vw 40px
   <h2 class="reveal">Sales, accessories &amp; service</h2>
   <p class="sub reveal">Everything your phone needs, from day one to year five.</p>
   <div class="grid">
-   <div class="card reveal tilt"><div class="ico">📱</div><h3>Smartphone Sales</h3><p>New launches across every budget, with exchange guidance and setup help.</p></div>
-   <div class="card reveal tilt"><div class="ico">🎧</div><h3>Accessories</h3><p>Cases, tempered glass, chargers, earbuds and more, chosen for quality.</p></div>
-   <div class="card reveal tilt"><div class="ico">🛠️</div><h3>Expert Repair</h3><p>Screens, batteries, charging ports and software issues handled by skilled technicians.</p></div>
+   <div class="card reveal tilt" onclick="switchView('brands-page', 'Apple')"><div class="ico">📱</div><h3>Smartphone Sales</h3><p>New launches across every budget, with exchange guidance and setup help.</p></div>
+   <div class="card reveal tilt" onclick="switchView('brands-page', 'Apple')"><div class="ico">🎧</div><h3>Accessories</h3><p>Cases, tempered glass, chargers, earbuds and more, chosen for quality.</p></div>
+   <div class="card reveal tilt" onclick="switchView('repair-page')"><div class="ico">🛠️</div><h3>Expert Repair</h3><p>Screens, batteries, charging ports and software issues handled by skilled technicians.</p></div>
   </div>
  </div></section>
+
+ <!-- Comprehensive FAQ Section -->
+ <section id="faq">
+  <h2 class="reveal">Frequently Asked Questions</h2>
+  <p class="sub reveal">Got questions about our phones, exchanges, or repair warranties? We’ve got answers.</p>
+  <div class="faq-list reveal">
+   <div class="faq-item">
+    <div class="faq-q" onclick="toggleFaq(this)">Are all smartphones sold at Ambika Mobile 100% genuine with warranty?</div>
+    <div class="faq-a">Yes! Every smartphone we sell from Apple, Samsung, OnePlus, and Vivo is 100% genuine, factory-sealed, and comes with full official brand manufacturer warranty and support.</div>
+   </div>
+   <div class="faq-item">
+    <div class="faq-q" onclick="toggleFaq(this)">Do you offer phone exchange and trade-in deals?</div>
+    <div class="faq-a">Absolutely. Bring your old smartphone to either our Hazira or Thatipur branch for an instant, transparent evaluation and get the best exchange value towards your new upgrade.</div>
+   </div>
+   <div class="faq-item">
+    <div class="faq-q" onclick="toggleFaq(this)">How long does a screen or battery repair take?</div>
+    <div class="faq-a">Most standard screen and battery replacements are completed in 30 to 60 minutes. You can relax at our store lounge while our expert technicians service your device.</div>
+   </div>
+   <div class="faq-item">
+    <div class="faq-q" onclick="toggleFaq(this)">Do repair services come with a warranty?</div>
+    <div class="faq-a">Yes, all screen and battery replacements include a 6-month service warranty covering parts and craftsmanship.</div>
+   </div>
+   <div class="faq-item">
+    <div class="faq-q" onclick="toggleFaq(this)">What payment methods do you accept?</div>
+    <div class="faq-a">We accept all major credit/debit cards, UPI payments (PhonePe, Google Pay, Paytm), cash, and offer zero-cost EMI options through leading finance partners.</div>
+   </div>
+  </div>
+ </section>
 
  <section id="visit">
   <h2 class="reveal">Two branches, one promise</h2>
   <p class="sub reveal">Walk into whichever is closer to you.</p>
   <div class="grid">
-   <div class="card reveal tilt"><div class="ico">📍</div><h3>Hazira Branch</h3><p>Gwalior, Madhya Pradesh</p><p style="margin-top:14px"><a class="btn ghost" style="padding:9px 20px" href="https://www.google.com/maps/search/Ambika+Mobile+Hazira+Gwalior" target="_blank" rel="noopener">Get directions</a></p></div>
-   <div class="card reveal tilt"><div class="ico">📍</div><h3>Thatipur Branch</h3><p>Gwalior, Madhya Pradesh</p><p style="margin-top:14px"><a class="btn ghost" style="padding:9px 20px" href="https://www.google.com/maps/search/Ambika+Mobile+Thatipur+Gwalior" target="_blank" rel="noopener">Get directions</a></p></div>
+   <div class="card reveal tilt" onclick="switchView('contact-page')"><div class="ico">📍</div><h3>Hazira Branch</h3><p>Gwalior, Madhya Pradesh</p><p style="margin-top:14px"><span class="btn ghost" style="padding:9px 20px">View branch details</span></p></div>
+   <div class="card reveal tilt" onclick="switchView('contact-page')"><div class="ico">📍</div><h3>Thatipur Branch</h3><p>Gwalior, Madhya Pradesh</p><p style="margin-top:14px"><span class="btn ghost" style="padding:9px 20px">View branch details</span></p></div>
   </div>
  </section>
 
  <section class="final">
   <h2 class="reveal">Ready for an upgrade?</h2>
   <p class="sub reveal">Drop in for a demo, a quote or a quick fix.</p>
-  <button class="btn reveal" onclick="switchView('brands-page', 'Apple')">Browse all smartphones</button>
+  <button class="btn reveal" onclick="switchView('contact-page')">Contact our stores</button>
  </section>
 </div>
 
@@ -154,7 +221,7 @@ footer{text-align:center;color:var(--mut);font-size:.85rem;padding:30px 5vw 40px
  <div class="page-header">
   <button class="btn ghost" onclick="switchView('home')" style="margin-bottom: 20px; padding: 8px 18px; font-size: .85rem;">← Back to Home</button>
   <span class="tag">Catalog &amp; Availability</span>
-  <h2>Explore Smartphone Brands</h2>
+  <h2>Explore Products &amp; Brands</h2>
   <p class="sub">Select a brand below to view available models, specifications, and best pricing at Ambika Mobile Gwalior.</p>
   
   <div class="brand-tabs" id="brand-tabs-container">
@@ -167,14 +234,232 @@ footer{text-align:center;color:var(--mut);font-size:.85rem;padding:30px 5vw 40px
  </div>
 </div>
 
-<footer>© <span id="yr"></span> Ambika Mobile Sale &amp; Service, Gwalior. All rights reserved.</footer>
+<!-- REPAIR SERVICES PAGE VIEW -->
+<div id="repair-page-view" class="view">
+ <div class="page-header">
+  <button class="btn ghost" onclick="switchView('home')" style="margin-bottom: 20px; padding: 8px 18px; font-size: .85rem;">← Back to Home</button>
+  <span class="tag">Expert Technicians</span>
+  <h2>Dedicated Repair Services</h2>
+  <p class="sub">Certified repairs for Apple, Samsung, OnePlus, Vivo and more. Genuine spare parts, transparent pricing, and 6-month warranty on screen and battery replacements.</p>
+ </div>
+
+ <div class="repair-grid">
+  <div class="repair-card">
+   <div>
+    <span class="repair-badge">Most Popular</span>
+    <div class="repair-title">Screen &amp; Glass Replacement</div>
+    <div class="repair-price">From ₹1,499</div>
+    <ul class="repair-details">
+     <li>Original OLED/LCD touch displays</li>
+     <li>Same-day turnaround (30-60 mins)</li>
+     <li>6-month replacement warranty</li>
+     <li>Free tempered glass protector included</li>
+    </ul>
+   </div>
+   <button class="btn" onclick="showToast('Screen repair slot booked! Visit Hazira or Thatipur.')" style="width:100%; padding:11px; font-size:.9rem">Book Repair Slot</button>
+  </div>
+
+  <div class="repair-card">
+   <div>
+    <span class="repair-badge">Essential Care</span>
+    <div class="repair-title">Battery Replacement</div>
+    <div class="repair-price">From ₹999</div>
+    <ul class="repair-details">
+     <li>High-capacity certified cells</li>
+     <li>Restores 100% battery health</li>
+     <li>Prevents sudden shutdowns &amp; heating</li>
+     <li>Tested for safety and longevity</li>
+    </ul>
+   </div>
+   <button class="btn" onclick="showToast('Battery repair slot booked! Visit Hazira or Thatipur.')" style="width:100%; padding:11px; font-size:.9rem">Book Repair Slot</button>
+  </div>
+
+  <div class="repair-card">
+   <div>
+    <span class="repair-badge">Hardware Fix</span>
+    <div class="repair-title">Charging Port &amp; Audio Repair</div>
+    <div class="repair-price">From ₹699</div>
+    <ul class="repair-details">
+     <li>USB-C / Lightning port cleaning or swap</li>
+     <li>Earpiece &amp; loudspeaker replacement</li>
+     <li>Microphone clarity restoration</li>
+     <li>Fast-charging protocol verification</li>
+    </ul>
+   </div>
+   <button class="btn" onclick="showToast('Charging port repair booked! Visit Hazira or Thatipur.')" style="width:100%; padding:11px; font-size:.9rem">Book Repair Slot</button>
+  </div>
+
+  <div class="repair-card">
+   <div>
+    <span class="repair-badge">Digital Support</span>
+    <div class="repair-title">Software Troubleshooting</div>
+    <div class="repair-price">From ₹499</div>
+    <ul class="repair-details">
+     <li>OS flashing &amp; bootloop recovery</li>
+     <li>Data backup &amp; safe migration</li>
+     <li>Virus / malware removal &amp; optimization</li>
+     <li>Apple ID / Google account unlocking support</li>
+    </ul>
+   </div>
+   <button class="btn" onclick="showToast('Software service booked! Visit Hazira or Thatipur.')" style="width:100%; padding:11px; font-size:.9rem">Book Repair Slot</button>
+  </div>
+
+  <div class="repair-card">
+   <div>
+    <span class="repair-badge">Advanced Lab</span>
+    <div class="repair-title">Water Damage &amp; Motherboard Fix</div>
+    <div class="repair-price">Inspection Free</div>
+    <ul class="repair-details">
+     <li>Ultrasonic chemical cleaning</li>
+     <li>Chip-level micro-soldering repair</li>
+     <li>Dead phone data recovery services</li>
+     <li>Detailed diagnostic estimate before work</li>
+    </ul>
+   </div>
+   <button class="btn" onclick="showToast('Motherboard check booked! Visit Hazira or Thatipur.')" style="width:100%; padding:11px; font-size:.9rem">Book Repair Slot</button>
+  </div>
+
+  <div class="repair-card">
+   <div>
+    <span class="repair-badge">Protection</span>
+    <div class="repair-title">Camera &amp; Glass Lens Repair</div>
+    <div class="repair-price">From ₹899</div>
+    <ul class="repair-details">
+     <li>Outer camera glass lens replacement</li>
+     <li>Main sensor dust cleaning &amp; alignment</li>
+     <li>OIS stabilization repair</li>
+     <li>Original clarity and focus restored</li>
+    </ul>
+   </div>
+   <button class="btn" onclick="showToast('Camera repair slot booked! Visit Hazira or Thatipur.')" style="width:100%; padding:11px; font-size:.9rem">Book Repair Slot</button>
+  </div>
+ </div>
+</div>
+
+<!-- CONTACT PAGE VIEW -->
+<div id="contact-page-view" class="view">
+ <div class="page-header">
+  <button class="btn ghost" onclick="switchView('home')" style="margin-bottom: 20px; padding: 8px 18px; font-size: .85rem;">← Back to Home</button>
+  <span class="tag">Get in Touch</span>
+  <h2>Contact Ambika Mobile</h2>
+  <p class="sub">Have a question about a phone launch, repair quote, or branch timings? Reach out or visit our Hazira and Thatipur stores.</p>
+ </div>
+
+ <div class="contact-layout">
+  <!-- Contact Form -->
+  <div class="contact-form">
+   <h3 style="font-size: 1.5rem; margin-bottom: 20px; font-weight: 800;">Send us a message</h3>
+   <form onsubmit="handleContactSubmit(event)">
+    <div class="form-group">
+     <label for="c-name">Your Full Name</label>
+     <input type="text" id="c-name" class="form-control" placeholder="Saksham Sharma" required>
+    </div>
+    <div class="form-group">
+     <label for="c-phone">Mobile Number</label>
+     <input type="tel" id="c-phone" class="form-control" placeholder="+91 98260 XXXXX" required>
+    </div>
+    <div class="form-group">
+     <label for="c-branch">Preferred Branch</label>
+     <select id="c-branch" class="form-control">
+      <option value="Hazira">Hazira Branch (Gwalior)</option>
+      <option value="Thatipur">Thatipur Branch (Gwalior)</option>
+     </select>
+    </div>
+    <div class="form-group">
+     <label for="c-msg">Message / Inquiry</label>
+     <textarea id="c-msg" class="form-control" placeholder="Tell us which phone or repair you are inquiring about..." required></textarea>
+    </div>
+    <button type="submit" class="btn" style="width: 100%; padding: 14px;">Send Message</button>
+   </form>
+  </div>
+
+  <!-- Store Locations -->
+  <div style="display: flex; flex-direction: column; gap: 24px;">
+   <div class="card" style="cursor: default;">
+    <div class="ico">📍</div>
+    <h3 style="font-size: 1.3rem; margin-bottom: 8px;">Hazira Branch (Main Store)</h3>
+    <p style="color: var(--mut); margin-bottom: 12px;">Near Main Square, Hazira, Gwalior, Madhya Pradesh - 474003</p>
+    <p style="font-weight: 700; font-size: 0.95rem; margin-bottom: 14px;">Phone: +91 98260 11111 | Timing: 10:00 AM – 9:00 PM</p>
+    <a class="btn ghost" style="padding: 9px 20px; font-size: .85rem;" href="https://www.google.com/maps/search/Ambika+Mobile+Hazira+Gwalior" target="_blank" rel="noopener">Get Google Directions</a>
+   </div>
+
+   <div class="card" style="cursor: default;">
+    <div class="ico">📍</div>
+    <h3 style="font-size: 1.3rem; margin-bottom: 8px;">Thatipur Branch</h3>
+    <p style="color: var(--mut); margin-bottom: 12px;">Central Market Road, Thatipur, Gwalior, Madhya Pradesh - 474011</p>
+    <p style="font-weight: 700; font-size: 0.95rem; margin-bottom: 14px;">Phone: +91 98260 22222 | Timing: 10:00 AM – 9:00 PM</p>
+    <a class="btn ghost" style="padding: 9px 20px; font-size: .85rem;" href="https://www.google.com/maps/search/Ambika+Mobile+Thatipur+Gwalior" target="_blank" rel="noopener">Get Google Directions</a>
+   </div>
+  </div>
+ </div>
+</div>
+
+</main>
+
+<!-- FOOTER AT BOTTOM OF ALL PAGES -->
+<footer>
+ <div class="footer-grid">
+  <div class="footer-col">
+   <h4>Ambika Mobile</h4>
+   <p style="margin-bottom: 16px;">Gwalior’s most trusted multi-brand smartphone showroom and repair center for Apple, Samsung, OnePlus, and Vivo.</p>
+   <div class="social-icons">
+    <div class="social-icon" title="Instagram">IG</div>
+    <div class="social-icon" title="Facebook">FB</div>
+    <div class="social-icon" title="WhatsApp">WA</div>
+    <div class="social-icon" title="YouTube">YT</div>
+   </div>
+  </div>
+
+  <div class="footer-col">
+   <h4>Quick Links</h4>
+   <ul>
+    <li><a onclick="switchView('home')">Home</a></li>
+    <li><a onclick="switchView('brands-page', 'Apple')">Products</a></li>
+    <li><a onclick="switchView('repair-page')">Repair Services</a></li>
+    <li><a onclick="switchView('contact-page')">Contact</a></li>
+   </ul>
+  </div>
+
+  <div class="footer-col">
+   <h4>Store Branches</h4>
+   <ul>
+    <li><b>Hazira Branch:</b> Main Square, Gwalior</li>
+    <li><b>Thatipur Branch:</b> Central Market, Gwalior</li>
+    <li>Open 7 Days a Week</li>
+    <li>10:00 AM – 9:00 PM</li>
+   </ul>
+  </div>
+
+  <div class="footer-col">
+   <h4>Business Contact</h4>
+   <ul>
+    <li>Phone: +91 98260 11111</li>
+    <li>Support: support@ambikamobile.com</li>
+    <li>Gwalior, Madhya Pradesh</li>
+   </ul>
+  </div>
+ </div>
+ <div class="footer-bottom">
+  © <span id="yr"></span> Ambika Mobile Sale &amp; Service, Gwalior. All rights reserved.
+ </div>
+</footer>
 
 <!-- Notification Toast -->
-<div id="toast">Inquiry received! Our team will contact you soon.</div>
+<div id="toast">Message sent successfully! We will get back to you shortly.</div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script>
 document.getElementById('yr').textContent=new Date().getFullYear();
+
+// FAQ Accordion Toggle
+function toggleFaq(header) {
+ const item = header.parentElement;
+ const isOpen = item.classList.contains('open');
+ document.querySelectorAll('.faq-item').forEach(el => el.classList.remove('open'));
+ if (!isOpen) {
+  item.classList.add('open');
+ }
+}
 
 // Product Database by Brand
 const brandProducts = {
@@ -208,16 +493,31 @@ let currentBrand = 'Apple';
 
 function switchView(viewId, brandArg) {
  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+ document.querySelectorAll('nav ul a').forEach(a => a.classList.remove('active'));
+
  if (viewId === 'home') {
   document.getElementById('home-view').classList.add('active');
+  document.getElementById('nav-home').classList.add('active');
   window.scrollTo({top: 0, behavior: 'smooth'});
  } else if (viewId === 'brands-page') {
   document.getElementById('brands-page-view').classList.add('active');
+  document.getElementById('nav-products').classList.add('active');
   if (brandArg) currentBrand = brandArg;
   renderBrandsPage();
   window.scrollTo({top: 0, behavior: 'smooth'});
+ } else if (viewId === 'repair-page') {
+  document.getElementById('repair-page-view').classList.add('active');
+  document.getElementById('nav-repair').classList.add('active');
+  window.scrollTo({top: 0, behavior: 'smooth'});
+ } else if (viewId === 'contact-page') {
+  document.getElementById('contact-page-view').classList.add('active');
+  document.getElementById('nav-contact').classList.add('active');
+  window.scrollTo({top: 0, behavior: 'smooth'});
  }
 }
+
+// Set initial active nav
+document.getElementById('nav-home').classList.add('active');
 
 function renderBrandsPage() {
  const tabsContainer = document.getElementById('brand-tabs-container');
@@ -248,19 +548,27 @@ function renderBrandsPage() {
      ${prod.specs.map(s => `<li>${s}</li>`).join('')}
     </ul>
    </div>
-   <button class="btn" onclick="showInquiry('${prod.name}', '${prod.price}')" style="width:100%; padding:11px; font-size:.9rem">Inquire at Branch</button>
+   <button class="btn" onclick="showToast('Inquiry recorded for ${prod.name}! Visit Hazira or Thatipur.')" style="width:100%; padding:11px; font-size:.9rem">Inquire at Branch</button>
   `;
   gridContainer.appendChild(card);
  });
 }
 
-function showInquiry(modelName, price) {
+function showToast(msg) {
  const toast = document.getElementById('toast');
- toast.textContent = `Inquiry recorded for ${modelName} (${price})! Visit Hazira or Thatipur branch to grab yours.`;
+ toast.textContent = msg;
  toast.classList.add('show');
  setTimeout(() => {
   toast.classList.remove('show');
  }, 4000);
+}
+
+function handleContactSubmit(e) {
+ e.preventDefault();
+ const name = document.getElementById('c-name').value;
+ const branch = document.getElementById('c-branch').value;
+ showToast(`Thank you ${name}! Your message has been sent to our ${branch} branch team.`);
+ e.target.reset();
 }
 
 // Scroll reveal
